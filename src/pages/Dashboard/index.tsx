@@ -27,7 +27,7 @@ interface DashboardProps {
 Modal.setAppElement("#root");
 
 export default function Dashboard(props: DashboardProps) {
-  const [foodsToList, setFoodsToList] = useState<FoodProps[]>(props.foods);
+  const [foodsToList, setFoodsToList] = useState<FoodProps[]>([]);
   const [modalToOpen, setModalToOpen] = useState(false);
   const [modalEditToOpen, setModalEditToOpen] = useState(false);
   const [toEditingFood, setToEditingFood] = useState<FoodProps>(
@@ -35,12 +35,10 @@ export default function Dashboard(props: DashboardProps) {
   );
 
   useEffect(() => {
-    async function loadFood() {
-      const response = await api.get<FoodProps[]>("/foods");
+    async function loadFood(): Promise<void> {
+      const response = await api.get("/foods");
 
-      const data = response.data.map((food) => food);
-
-      setFoodsToList(data);
+      setFoodsToList(response.data);
     }
 
     loadFood();
@@ -60,15 +58,13 @@ export default function Dashboard(props: DashboardProps) {
   };
 
   const handleUpdateFood = async (food: FoodProps) => {
-    const { foods } = props;
-
     try {
       const foodUpdated = await api.put(`/foods/${toEditingFood.id}`, {
         ...toEditingFood,
         ...food,
       });
 
-      const foodsUpdated = foods.map((f) =>
+      const foodsUpdated = foodsToList.map((f) =>
         f.id !== foodUpdated.data.id ? f : foodUpdated.data
       );
 

@@ -4,7 +4,7 @@ import Routes from "./routes";
 
 import GlobalStyle from "./styles/global";
 
-export default function App() {
+const App = () => {
   return (
     <>
       <GlobalStyle />
@@ -13,4 +13,6 @@ export default function App() {
       </Router>
     </>
   );
-}
+};
+
+export default App;
