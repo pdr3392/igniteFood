@@ -11,6 +11,7 @@
     "@types/react": "^17.0.26",
     "@types/react-dom": "^17.0.9",
     "@types/react-modal": "^3.12.1",
+    "@types/react-router-dom": "^5.3.0",
     "@unform/core": "^2.1.6",
     "@unform/web": "^2.1.6",
     "axios": "^0.21.1",
